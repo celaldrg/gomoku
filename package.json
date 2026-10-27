@@ -1,0 +1,11 @@
+{
+  "name": "gomoku",
+  "version": "1.0.0",
+  "description": "Gomoku (five in a row) on a 15x15 board with an alpha-beta AI. Vanilla JS, no build step.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}

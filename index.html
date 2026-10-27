@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gomoku: five in a row</title>
+  <meta name="description" content="Gomoku (five in a row) in your browser: a 15x15 wooden board, an alpha-beta AI with three levels, two-player mode, undo, touch and keyboard controls. Free and open source.">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gomoku">
+  <meta property="og:description" content="Get five in a row on a 15x15 board, against a smart AI or a friend. Free, open source, no install.">
+  <meta property="og:url" content="https://celaldrg.github.io/gomoku/">
+  <meta property="og:image" content="https://celaldrg.github.io/gomoku/docs/screenshot.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23dfb26c'/%3E%3Cpath d='M20 6v52M44 6v52M6 20h52M6 44h52' stroke='%235b3a17' stroke-width='3' opacity='.55'/%3E%3Ccircle cx='20' cy='20' r='12' fill='%23111827'/%3E%3Ccircle cx='44' cy='44' r='12' fill='%23f8fafc'/%3E%3Ccircle cx='44' cy='44' r='4' fill='%23fbbf24'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="src/main.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <h1 data-i18n="title">Gomoku</h1>
+    </div>
+    <div class="topbar-actions">
+      <button id="new-game" class="btn btn-primary" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg>
+        <span data-i18n="newGame">New game</span>
+      </button>
+      <button id="lang" class="btn lang-btn" type="button" data-i18n-title="lang.switch" title="Switch to Turkish">TR</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section id="status" class="status card" data-tone="turn">
+      <div class="status-row">
+        <span id="status-stone" class="stone-dot" data-stone="black" aria-hidden="true"></span>
+        <p id="status-text" class="status-text">Your move</p>
+        <span id="status-meta" class="status-meta">Move 1</span>
+      </div>
+      <p id="hint" class="hint">Click a point to place a stone. Keyboard: arrows + Enter.</p>
+    </section>
+
+    <div class="board-frame">
+      <canvas id="board" class="board" tabindex="0" role="application" aria-describedby="status-text"
+        data-i18n-label="board.label" aria-label="Gomoku board, 15 by 15. Arrow keys move the cursor, Enter places a stone."></canvas>
+    </div>
+
+    <div class="actions">
+      <button id="undo" class="btn" type="button" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+        <span data-i18n="undo">Undo</span>
+      </button>
+      <button id="numbers" class="btn" type="button" aria-pressed="false" data-i18n-title="numbers.label" title="Show move numbers">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14M5 15h14M10 4 8 20M16 4l-2 16"/></svg>
+        <span data-i18n="numbers">Numbers</span>
+      </button>
+      <button id="settings-toggle" class="btn settings-toggle" type="button" aria-expanded="false" aria-controls="settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+        <span data-i18n="settings">Settings</span>
+      </button>
+    </div>
+
+    <section id="settings" class="settings card" data-i18n-label="settings" aria-label="Settings">
+      <fieldset class="field">
+        <legend data-i18n="settings.mode">Mode</legend>
+        <div class="segmented">
+          <label><input type="radio" name="mode" value="ai" checked><span class="seg" data-i18n="mode.ai">vs computer</span></label>
+          <label><input type="radio" name="mode" value="pvp"><span class="seg" data-i18n="mode.pvp">2 players</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="field" data-ai-only>
+        <legend data-i18n="settings.level">Level</legend>
+        <div class="segmented">
+          <label><input type="radio" name="level" value="easy"><span class="seg" data-i18n="level.easy">Easy</span></label>
+          <label><input type="radio" name="level" value="medium" checked><span class="seg" data-i18n="level.medium">Medium</span></label>
+          <label><input type="radio" name="level" value="hard"><span class="seg" data-i18n="level.hard">Hard</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="field" data-ai-only>
+        <legend data-i18n="settings.color">You play</legend>
+        <div class="segmented">
+          <label><input type="radio" name="humanColor" value="1" checked><span class="seg"><span class="chip-stone" data-stone="black" aria-hidden="true"></span><span data-i18n="color.black">Black</span></span></label>
+          <label><input type="radio" name="humanColor" value="2"><span class="seg"><span class="chip-stone" data-stone="white" aria-hidden="true"></span><span data-i18n="color.white">White</span></span></label>
+        </div>
+      </fieldset>
+      <fieldset class="field">
+        <legend data-i18n="settings.rule">Winning line</legend>
+        <div class="segmented">
+          <label><input type="radio" name="rule" value="freestyle" checked><span class="seg" data-i18n="rule.freestyle">5 or more</span></label>
+          <label><input type="radio" name="rule" value="exact"><span class="seg" data-i18n="rule.exact">Exactly 5</span></label>
+        </div>
+      </fieldset>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="https://github.com/celaldrg/gomoku" data-i18n="footer">MIT · Source on GitHub</a>
+  </footer>
+  <p id="announcer" class="sr-only" aria-live="polite"></p>
+</body>
+</html>
