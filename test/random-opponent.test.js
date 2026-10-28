@@ -5,10 +5,15 @@ import { SIZE, EMPTY, BLACK, WHITE, RULES, findWin } from '../src/board.js';
 import { createRng, randomInt } from '../src/rng.js';
 
 const GAMES = 100;
-/** The AI plays with the Medium level's settings, the level a first visit gets. */
+/** The AI plays with the Medium level's move widths, the level a first visit gets. */
 const LEVEL = 'medium';
-/** No time limit: every search runs to the level's full depth, so each game is reproducible. */
-const SEARCH = { level: LEVEL, timeLimitMs: 0 };
+/**
+ * Fixed depth, one below Medium's, keeps the 100 games at a few seconds so the
+ * whole suite stays well under 30 s on CI; the real level only searches deeper.
+ */
+const DEPTH = LEVELS[LEVEL].depth - 1;
+/** No time limit: every search runs to DEPTH, so each game is reproducible. */
+const SEARCH = { level: LEVEL, depth: DEPTH, timeLimitMs: 0 };
 
 function hasNeighbour(cells, index) {
   const x0 = index % SIZE;
@@ -58,7 +63,7 @@ function playGame(index) {
   return 'draw';
 }
 
-test(`the AI never loses to a seeded random opponent over ${GAMES} games (${LEVEL} level, fixed depth ${LEVELS[LEVEL].depth})`, () => {
+test(`the AI never loses to a seeded random opponent over ${GAMES} games (${LEVEL} level, fixed depth ${DEPTH})`, () => {
   const lost = [];
   let wins = 0;
   for (let game = 0; game < GAMES; game++) {

@@ -49,7 +49,7 @@ No packages to install (CI runs Node.js 22). The suites are deterministic and fi
 - board rules: five in every direction, edges and corners, overlines under both rules;
 - pattern recognition, scoring and the incremental evaluator;
 - AI tactics: takes a win, blocks a four, answers an open three, keeps to its time budget, same move for the same seed;
-- 100 seeded games at the Medium level against a random opponent: the AI never loses (it wins all 100);
+- 100 seeded games with Medium's settings at a fixed depth of 5 against a random opponent: the AI never loses (it wins all 100);
 - game flow: turns, illegal moves, undo, wins, draws, replaying a saved game, the demo position;
 - UI helpers: board geometry and hit testing, coordinates, keyboard cursor, status line, settings and saved-game checks, storage that never throws, and English / Turkish strings that match key for key (every key the page uses exists).
 
@@ -124,7 +124,7 @@ Kurulacak paket yok (CI Node.js 22 kullanır). Testler deterministiktir ve birka
 - tahta kuralları: her yönde beşli, kenar ve köşeler, iki kuralda da uzun sıralar;
 - dizi kalıplarının tanınması, puanlama ve artımlı değerlendirici;
 - yapay zekâ taktikleri: kazanan hamleyi oynar, dörtlüyü keser, açık üçlüye doğru cevap verir, süre bütçesine uyar, aynı tohumla aynı hamleyi seçer;
-- Orta seviyede, rastgele oynayan rakibe karşı tohumlu 100 oyun: yapay zekâ hiç kaybetmez (100'ünü de kazanır);
+- Orta seviyenin ayarlarıyla, sabit 5 derinlikte rastgele oynayan rakibe karşı tohumlu 100 oyun: yapay zekâ hiç kaybetmez (100'ünü de kazanır);
 - oyun akışı: sıra, geçersiz hamle, geri alma, kazanma, beraberlik, kayıtlı oyunu yeniden kurma, demo pozisyonu;
 - arayüz yardımcıları: tahta geometrisi ve tıklama tespiti, koordinatlar, klavye imleci, durum satırı, ayar ve kayıt doğrulaması, hiç hata fırlatmayan depolama, İngilizce ve Türkçe metinlerin anahtar anahtar eşleşmesi (sayfanın kullandığı her anahtar mevcut).
 

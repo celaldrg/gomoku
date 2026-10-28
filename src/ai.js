@@ -27,7 +27,7 @@ import { createRng, randomInt } from './rng.js';
  */
 export const LEVELS = Object.freeze({
   easy: Object.freeze({ depth: 1, rootWidth: 8, width: 6, timeLimitMs: 300, margin: 120 }),
-  medium: Object.freeze({ depth: 5, rootWidth: 12, width: 8, timeLimitMs: 800, margin: 0 }),
+  medium: Object.freeze({ depth: 6, rootWidth: 12, width: 8, timeLimitMs: 800, margin: 0 }),
   hard: Object.freeze({ depth: 10, rootWidth: 16, width: 10, timeLimitMs: 2000, margin: 0 }),
 });
 
